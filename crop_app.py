@@ -7,6 +7,9 @@ import os
 st.set_page_config(page_title="작물 가격 예측기", page_icon="🌽")
 st.title("🌾 작물 가격 예측 및 돌연변이 계산기")
 
+# 📁 샘플 저장 파일 초기화
+SAMPLE_FILE = "samples.csv"
+
 if not os.path.exists(SAMPLE_FILE):
     pd.DataFrame(columns=["작물", "kg", "기준가격", "날짜"]).to_csv(SAMPLE_FILE, index=False)
 
