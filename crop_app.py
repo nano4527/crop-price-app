@@ -64,13 +64,19 @@ df = pd.read_csv(SAMPLE_FILE)
 crop_samples = df[df["작물"] == crop_name]
 
 # 🔹 예측 여부 판단
-use_model = False
 predict_price = None
+use_model = False
 
-if use_prediction and len(crop_samples) >= 3:
-    coef = np.polyfit(crop_samples["kg"], crop_samples["기준가격"], 2)
-    predict_price = np.polyval(coef, kg)
-    use_model = True
+if use_prediction == "가격 예측 사용":
+    if len(crop_samples) >= 3:
+        coef = np.polyfit(crop_samples["kg"], crop_samples["기준가격"], 2)
+        predict_price = np.polyval(coef, kg)
+        use_model = True
+    else:
+        st.warning("⚠️ 예측 가능한 기준 가격이 없습니다 (샘플 3개 이상 필요).")
+elif use_prediction == "직접 가격 입력":
+    predict_price = st.number_input("직접 입력할 기준 가격", min_value=0, step=100)
+    use_model = True  # 수동 입력도 곧바로 계산으로 사용
 
 # 🔹 최종 배수 계산
 total_multiplier = mutation_multiplier * weather_multiplier
