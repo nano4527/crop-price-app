@@ -12,6 +12,9 @@ SAMPLE_FILE = os.path.join(os.path.expanduser("~"), "samples.csv")
 
 if not os.path.exists(SAMPLE_FILE):
     pd.DataFrame(columns=["작물", "kg", "기준가격", "날짜"]).to_csv(SAMPLE_FILE, index=False)
+    print("samples.csv 생성 완료")
+else:
+    print("samples.csv 이미 존재함")
 
 # 🔹 사용자 입력: 작물 이름
 crop_name = st.text_input("작물 이름을 입력하세요 (예: 감자, 토마토)").strip()
