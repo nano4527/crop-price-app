@@ -57,7 +57,11 @@ for eng, kor, bonus in mutation_data:
         selected_mutations.append((kor, bonus))
 
 # 🔹 예측 사용 여부 체크박스
-use_prediction = st.checkbox("📈 가격 예측 기능 사용 (작물별 3개 이상 샘플 필요)")
+use_prediction = st.radio(
+    "기준 가격 입력 방식 선택",
+    ["가격 예측 사용", "직접 가격 입력"],
+    index=0
+)
 
 # 🔹 기존 데이터 불러오기
 df = pd.read_csv(SAMPLE_FILE)
